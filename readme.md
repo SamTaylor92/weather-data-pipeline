@@ -11,7 +11,7 @@ I wanted to learn how to modularize a data pipeline end-to-end, from extraction 
 
 Previously, as an Analyst, I was used to running everything in one notebook (from API pull to analysis). This project was created to help me understand the modularization process of a data engineering project.
 
-## 📝 Design constraints
+<h2> 📝 Design constraints </h2>
 
 - **No data warehouse** _(Snowflake, Databricks, etc.)_
     - I decided instead to store locally, for simplicity.
