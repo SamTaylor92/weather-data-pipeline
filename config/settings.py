@@ -1,4 +1,3 @@
-# Simple configuration - no environment variables needed
 SETTINGS = {
     'data_folder': './data',
     'cities': [

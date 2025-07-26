@@ -100,21 +100,21 @@ def main():
     # Create data folder
     os.makedirs("data", exist_ok=True)
     
-    # Step 1: Extract weather data
+    # Extract weather data
     print("\n1️⃣ EXTRACTION")
     weather_raw = extract_weather_data()
     save_data(weather_raw, "raw_weather.csv")
     
-    # Step 2: Transform weather data
+    # Transform weather data
     print("\n2️⃣ TRANSFORMATION")
     weather_clean = transform_weather_data(weather_raw)
     save_data(weather_clean, "clean_weather.csv")
     
-    # Step 3: Create analytics
+    # Create analytics
     print("\n3️⃣ ANALYTICS")
     create_weather_analytics()
     
-    # Step 4: Show results
+    # Show results
     print("\n4️⃣ RESULTS")
     print_summary(weather_clean, "Clean Weather Data")
     
