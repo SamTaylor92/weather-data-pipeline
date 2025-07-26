@@ -1,32 +1,51 @@
 # Weather Data Engineering Pipeline 🌤️
 
-A simple, educational data engineering project that demonstrates real-world data pipeline concepts using Python, APIs, and data analysis. Perfect for learning how data flows from extraction to analytics.
+A simple, data engineering learning project that pulls weather data from an API, with the aim of learning about modularization.
+
+## 🎯 Project Aim
+I wanted to learn how to modularize a data pipeline end-to-end, from extraction to analytics. 
+- Pull an API
+- Store the API data locally
+- Transform the API data 
+- Quick analysis of the data 
+
+Previously, as an Analyst, I was used to running everything in one notebook (from API pull to analysis). This project was created to help me understand the modularization process of a data engineering project.
+
+## 📝 Design constraints
+- **No data warehouse** _(Snowflake, Databricks, etc.)_
+    - I decided instead to store locally, for simplicity.
+- **No fancy orchestration** _(Airflow, etc.)_
+    - Everything is self-contained in this project. 
+- **No Data Build Tool** _(DBT, etc.)_
+    - I decided to do self-contained, simple transformations within this project.
 
 ## 📊 What This Project Does
 
 - **Extracts** real weather data from 5 major cities using the Open-Meteo API
 - **Transforms** raw data with meaningful features and categories
-- **Creates analytics** showing temperature patterns by city, time, and weather conditions
-- **Demonstrates** professional Python project structure and data engineering best practices
+- **Creates basic analytics** showing temperature patterns by city, time, and weather conditions
+
 
 ## 🏗️ Project Structure
 
 ```
 weather-data-pipeline/
+├── analysis/
+│   └── weather_analysis.ipynb  # Jupyter notebook for basic analysis
 ├── config/
 │   ├── __init__.py
-│   └── settings.py          # Configuration and city coordinates
+│   └── settings.py             # Global variables
 ├── extractors/
 │   ├── __init__.py
-│   └── weather.py           # Weather API extraction logic
+│   └── weather.py              # Weather API-specific extraction functions
 ├── utils/
 │   ├── __init__.py
-│   └── helpers.py           # Shared utility functions
-├── data/                    # Generated data files (CSV)
-├── main.py                  # Main pipeline orchestration
-├── explore.py               # Interactive data exploration
-├── requirements.txt         # Python dependencies
-└── README.md
+│   └── helpers.py              # Reusable functions
+├── data/                       # Generated CSV files
+├── main.py                     # Main pipeline
+├── requirements.txt
+├── README.md                   # ⬅️ [...You are here] 😅
+└── .gitignore
 ```
 
 ## 🚀 Quick Start
@@ -34,7 +53,6 @@ weather-data-pipeline/
 ### Prerequisites
 
 - Python 3.8+
-- pip (Python package manager)
 
 ### Installation
 
@@ -73,19 +91,21 @@ After running the pipeline, you'll have several CSV files in the `data/` folder:
 
 ## 🔍 Interactive Exploration
 
-Open `explore.py` or create a Jupyter notebook to interactively analyze your data:
+Open `weather_analysis.ipynb` for a basic analysis of the dataset(s):
 
 ```python
-import pandas as pd
-import matplotlib.pyplot as plt
-
 # Load weather data
-weather_df = pd.read_csv('./data/clean_weather.csv')
+weather_df = pd.read_csv('../data/clean_weather.csv')
 
-# Create visualizations
-weather_df.boxplot(column='temperature_c', by='city', figsize=(12, 6))
-plt.title('Temperature Distribution by City')
-plt.show()
+# Convert timestamp to datetime
+weather_df['timestamp'] = pd.to_datetime(weather_df['timestamp'])
+
+print(f"📊 Dataset loaded: {len(weather_df):,} records")
+print(f"🌍 Cities: {', '.join(weather_df['city'].unique())}")
+print(f"📅 Date range: {weather_df['timestamp'].min().date()} to {weather_df['timestamp'].max().date()}")
+
+# Display first few rows
+weather_df.head()
 ```
 
 ## 🌍 Cities Included
@@ -98,24 +118,26 @@ plt.show()
 
 ## 🛠️ Key Features
 
-### Data Pipeline Components
-- **Extraction**: Real-time weather API integration with error handling
-- **Transformation**: Data cleaning, feature engineering, and categorization
-- **Analytics**: Automated generation of business insights
+### 1. Data Pipeline Components
+- **Extraction**: Historical weather API with error handling
+- **Transformation**: Simple data cleaning, feature engineering, and categorization
+- **Analytics**: Automated generation of simple business insights
 - **Storage**: CSV-based data warehouse simulation
 
-### Python Best Practices
+### 2. Python Best Practices (*)
 - **Modular design** with clear separation of concerns
 - **Proper imports** and package structure
 - **Error handling** and logging
 - **Virtual environment** for dependency management
 - **Reusable functions** and utilities
 
-### Learning Concepts
+\* _'Best practice' as my Junior Engineer mind currently understands it!_ :sweat_smile:
+
+### 3. Learning Concepts
 - **API integration** and data extraction
-- **Pandas** data manipulation and analysis
-- **Data transformations** and feature engineering
+- **Python modularization**
 - **Project organization** and code structure
+- **Simple data transformations** and feature engineering
 - **Interactive data exploration**
 
 ## 📊 Sample Analytics
@@ -171,7 +193,6 @@ pandas==1.5.3
 numpy==1.24.3
 matplotlib==3.7.1
 seaborn==0.12.2
-faker==19.6.0
 ```
 
 ## 🤝 Contributing
@@ -182,14 +203,6 @@ faker==19.6.0
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📚 Learning Resources
-
-This project demonstrates concepts similar to:
-- **Databricks** - Data processing and analytics
-- **dbt** - Data transformation and modeling
-- **Airflow** - Pipeline orchestration
-- **Looker** - Business intelligence and visualization
-
 ## 🔗 API Credits
 
 Weather data provided by [Open-Meteo](https://open-meteo.com/) - a free weather API with no authentication required.
@@ -198,8 +211,10 @@ Weather data provided by [Open-Meteo](https://open-meteo.com/) - a free weather 
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+---
 ## 🎯 What's Next?
 
+Potential to:
 - Add database integration (SQLite, PostgreSQL)
 - Implement scheduling with cron jobs or Apache Airflow
 - Create a web dashboard with Flask or Streamlit
@@ -209,6 +224,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Built with ❤️ for learning data engineering concepts**
+**Built with a ❤️ for learning**
 
-*Perfect for junior data engineers, analysts transitioning to engineering roles, or anyone wanting to understand modern data pipelines.*
+:wave: *Hey, I'm Sam! <br> <br>I'm just a Junior Data Engineer, who's documenting his way through his data-engineering journey: one concept at a time. <br><br>Feel free to give feedback and tips!* :books: :nerd_face:

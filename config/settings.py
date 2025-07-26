@@ -1,7 +1,6 @@
 # Simple configuration - no environment variables needed
 SETTINGS = {
     'data_folder': './data',
-    'num_fake_records': 50,
     'cities': [
         {'name': 'Berlin', 'lat': 52.52, 'lon': 13.41, 'country': 'Germany'},
         {'name': 'London', 'lat': 51.51, 'lon': -0.13, 'country': 'UK'},
