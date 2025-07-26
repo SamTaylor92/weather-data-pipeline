@@ -1,0 +1,8 @@
+.mypy_cache
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.ipynb_checkpoints/
+data/*.csv
+*.log
